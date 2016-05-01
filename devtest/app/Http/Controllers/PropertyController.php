@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Property;
 
+use DB;
+
 class PropertyController extends Controller
 {
     /**
@@ -23,10 +25,24 @@ class PropertyController extends Controller
 	public function search(Request $request)
 	{
 		//return response()->json(['name' => 'memes']);
-		return response()->json([
-			['name'=>'Victoria', 'bedrooms'=>2, 'bathrooms'=>1, 'price'=>1000, 'storeys'=>1,'garages'=>1],
-			['name'=>'peepeepoopoo', 'bedrooms'=>2, 'bathrooms'=>1, 'price'=>1000, 'storeys'=>1,'garages'=>1],
-		]);
+		$query = DB::table("properties");
+		if( $request->name != "" ) {
+			$query = $query->where("name", "LIKE", "%".$request->name."%" );
+		} if( $request->bedrooms!= ""){
+			$query = $query->where("bedrooms", $request->bedrooms);
+		} if( $request->bathrooms != "" ) {
+			$query = $query->where("bathrooms", $request->bathrooms);
+		} if( $request->storeys != "" ) {
+			$query = $query->where("storeys", $request->storeys);
+		} if( $request->garages != "" ) {
+			$query = $query->where("garages", $request->garages);
+		} if( $request->minprice != "" ) {
+			$query = $query->where("price", ">", $request->minprice);
+		} if( $request->maxprice != "" ) {
+			$query = $query->where("price", "<", $request->maxprice);
+		}
+		return response()->json($query->get()
+		);
 	}
 
     /**

@@ -7,8 +7,9 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>House Form</title>
 
-    <!-- Bootstrap -->
+    <!-- css -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,6 +22,7 @@
     <script src="js/jquery-2.2.3.min.js"></script>
 	<script src="js/backbone.js"></script>
 	<script src="js/app.js"></script>
+	<script src="js/autoNumeric.min.js"></script>
   </head>
   <body>
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -54,7 +56,10 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4">
-					<button type="button" id="search-submit" class="btn btn-primary">Submit</button>
+					<button type="button" id="search-submit" class="btn btn-primary">
+						<i class="fa fa-search"></i>
+						<i class="fa fa-refresh fa-spin"></i>
+					</button>
 				</div>
 			</div>
 		</form>
@@ -64,21 +69,6 @@
 				<tr></tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>Row #1 cell #1</td>
-					<td>Row #1 cell #2</td>
-					<td>Row #1 cell #3</td>
-				</tr>
-				<tr>
-					<td>Row #2 cell #1</td>
-					<td>Row #2 cell #2</td>
-					<td>Row #2 cell #3</td>
-				</tr>
-				<tr>
-					<td>Row #3 cell #1</td>
-					<td>Row #3 cell #2</td>
-					<td>Row #3 cell #3</td>
-				</tr>
 			</tbody>
 		</table>
 	</div>

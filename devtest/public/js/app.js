@@ -18,8 +18,6 @@ var Properties = Backbone.Collection.extend({
 });
 
 var properties = new Properties([
-	{"id":1, "name":"test"},
-	{"id":2, "name":"secontest"}
 ]);
 
 var PropertyView = Backbone.View.extend({
@@ -31,7 +29,7 @@ var PropertyView = Backbone.View.extend({
 	initialize: function() {
 		this.listenTo(properties, "change", this.render);
 		this.fields = [
-			"rooms", "name", "bathrooms", "storeys", "price", "garages"
+			"bedrooms", "name", "bathrooms", "storeys", "price", "garages"
 		];
 		this.render();
 	},
@@ -49,6 +47,7 @@ var PropertyView = Backbone.View.extend({
 			}, this);
 			$('table tbody').append(row);
 		});
+		$('table tbody tr td:nth-child(5)').prepend('$');
 	},
 
 	search: function() {
@@ -56,11 +55,17 @@ var PropertyView = Backbone.View.extend({
 		$('.form-control').each(function(index,elem){
 			arr[elem.name] = elem.value;
 		});
+		arr['minprice'] = $('#minpriceinput').autoNumeric('get');
+		arr['maxprice'] = $('#maxpriceinput').autoNumeric('get');
 		// NOTE: This is stupid. We need to read up on best practice for handling context inside of ajax callbacks.
 		var context = this;
+		$('.fa-spin').show();
+		$('.fa-search').hide();
 		$.post('/search', arr, function(data) {
 			properties = new Properties(data);
 			context.render();
+			$('.fa-spin').hide();
+			$('.fa-search').show();
 		});
 	}
 });
@@ -74,5 +79,12 @@ $(document).on('ready', function(e) {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
 	});
+	$('#minpriceinput').autoNumeric('init', {
+		aSign: '$'
+	});
+	$('#maxpriceinput').autoNumeric('init', {
+		aSign: '$'
+	});
+	app.search();
 
 });
