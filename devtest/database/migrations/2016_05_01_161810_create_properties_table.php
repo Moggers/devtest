@@ -16,11 +16,13 @@ class CreatePropertiesTable extends Migration
 		Schema::create('properties', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
-			$table->integer('rooms');
+			$table->integer('bedrooms');
 			$table->integer('bathrooms');
 			$table->integer('storeys');
 			$table->integer('garages');
 			$table->double('price');
+			$table->timestamp('updated_at');
+			$table->timestamp('created_at');
 		});
     }
 
@@ -32,6 +34,6 @@ class CreatePropertiesTable extends Migration
     public function down()
     {
         //
-		Schema:drop('properties');
+		Schema::drop('properties');
     }
 }
