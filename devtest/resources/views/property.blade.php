@@ -23,37 +23,38 @@
 	<script src="js/app.js"></script>
   </head>
   <body>
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
   	<div class="container">
 		<h4>Search</h4>
 		<form>
 			<div class="row form-group">
 				<div class="col-md-8">
-					<input type="text" class="form-control" id="nameinput" placeholder="Name"></input>
+					<input type="text" class="form-control" name="name" id="nameinput" placeholder="Name"></input>
 				</div>
 				<div class="col-md-2">
-					<input type="text" class="form-control" id="minpriceinput" placeholder="Min Price"></input>
+					<input type="text" class="form-control" name="minprice" id="minpriceinput" placeholder="Min Price"></input>
 				</div>
 				<div class="col-md-2">
-					<input type="text" class="form-control" id="maxpriceinput" placeholder="Max Price"></input>
+					<input type="text" class="form-control" name="maxprice" id="maxpriceinput" placeholder="Max Price"></input>
 				</div>
 			</div>
 			<div class="row form-group">
 				<div class="col-md-3">
-					<input type="text" class="form-control" id="roominput" placeholder="Rooms"></input>
+					<input type="text" class="form-control" name="bedrooms" id="roominput" placeholder="Bedrooms"></input>
 				</div>
 				<div class="col-md-3">
-					<input type="text" class="form-control" id="bathroominput" placeholder="Bathrooms"></input>
+					<input type="text" class="form-control" name="bathrooms" id="bathroominput" placeholder="Bathrooms"></input>
 				</div>
 				<div class="col-md-3">
-					<input type="text" class="form-control" id="storeyinput" placeholder="Storeys"></input>
+					<input type="text" class="form-control" name="storeys" id="storeyinput" placeholder="Storeys"></input>
 				</div>
 				<div class="col-md-3">
-					<input type="text" class="form-control" id="garageinput" placeholder="Garages"></input>
+					<input type="text" class="form-control" name="garages" id="garageinput" placeholder="Garages"></input>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4">
-					<button type="submit" id="submit-search" class="btn btn-primary">Submit</button>
+					<button type="button" id="search-submit" class="btn btn-primary">Submit</button>
 				</div>
 			</div>
 		</form>

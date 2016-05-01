@@ -13,7 +13,6 @@ var Property = Backbone.Model.extend({
 var Properties = Backbone.Collection.extend({
 	url: '/properties',
 	parse: function(data){
-		console.log(data);
 	},
 	model: Property
 });
@@ -24,12 +23,12 @@ var properties = new Properties([
 ]);
 
 var PropertyView = Backbone.View.extend({
+	el: "body",
 	events: {
 		"click #search-submit": "search"
 	},
 	
 	initialize: function() {
-		console.log(this);
 		this.listenTo(properties, "change", this.render);
 		this.fields = [
 			"rooms", "name", "bathrooms", "storeys", "price", "garages"
@@ -44,13 +43,24 @@ var PropertyView = Backbone.View.extend({
 			$('table thead tr').append('<th>' + field + '</th>');
 		});
 		properties.forEach( function(property) {
-			console.log(property);
 			var row = $('<tr/>');
 			_.forEach(view.fields, function(field){
 				row = row.append('<td>' + property.get(field) + '</td>');
 			}, this);
 			$('table tbody').append(row);
-			console.log( row[0].outerHTML );
+		});
+	},
+
+	search: function() {
+		var arr = {};
+		$('.form-control').each(function(index,elem){
+			arr[elem.name] = elem.value;
+		});
+		// NOTE: This is stupid. We need to read up on best practice for handling context inside of ajax callbacks.
+		var context = this;
+		$.post('/search', arr, function(data) {
+			properties = new Properties(data);
+			context.render();
 		});
 	}
 });
@@ -59,4 +69,10 @@ var PropertyView = Backbone.View.extend({
 
 $(document).on('ready', function(e) {
 	var app = new PropertyView;
+	$.ajaxSetup({
+		headers: { 
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+
 });

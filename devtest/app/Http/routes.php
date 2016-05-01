@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::resource('/', 'PropertyController');
+Route::resource('/search', 'PropertyController@search');
