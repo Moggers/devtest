@@ -63,8 +63,8 @@
 				</div>
 			</div>
 		</form>
+		<h4>Results</h4>
 		<table class="table table-striped table-hover">
-			<h4>Results</h4>
 			<thead>
 				<tr></tr>
 			</thead>
