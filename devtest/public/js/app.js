@@ -62,6 +62,9 @@ var PropertyView = Backbone.View.extend({
 		$('.fa-spin').show();
 		$('.fa-search').hide();
 		$.post('/search', arr, function(data) {
+			if( $.isEmptyObject(data)){
+				alert("No results found. Sorry!");
+			}
 			properties = new Properties(data);
 			context.render();
 			$('.fa-spin').hide();
